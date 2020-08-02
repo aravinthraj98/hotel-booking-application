@@ -1,0 +1,253 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <style>
+        body{
+            background-color: whitesmoke;
+        }
+        img{
+          max-width: 300px;
+          min-width:290px;
+          min-height:300px;
+          max-height:320px;
+        }
+        .blue{
+            background-color: rgb(33, 39, 36);
+            color:antiquewhite;
+        }
+       .border{
+           border-color: antiquewhite;
+           
+       }
+
+      </style>
+</head>
+<body>
+    <p style='text-align: right;margin-right: 5%;'><a href=# class='btn btn-danger'>logout</a></p>
+
+    {% if msg %}
+       <p>{{msg}}</p>
+    {% endif %}
+    <form action={% url 'show' %} method='POST'>
+
+ {% csrf_token %}
+   <div class="container-fluid blue">
+       
+<div class="row">
+ <div class='col'>
+     location:<br>  <input type="text" class='form-control' name='location' list='location' required>
+    </div>   
+   <datalist id='location'>
+        {% for i in location %}
+        <option >{{i}}</option>
+        {% endfor %}
+    </datalist>
+    
+    <div class='col'> 
+        check in<br><input type="date" class='form-control' name='checkin' id='cin' onchange='maxi()' required>
+    </div>
+    <div class='col'>
+        checkout<br> <input type="date" class='form-control' name='checkout' id='cout' required >
+    </div>
+    </div>
+    <br>
+    <div class='row'>
+    
+     
+    <div class='col'>
+        no of adults:<br>
+        <input type = 'number' min=1 placeholder="No of adults" class='form-control' value=1 id='adult' name='adult' onchange=change() required>
+    <br>
+        no of children:<br>
+        <input type = 'number' min=0 placeholder='No of childrens' class='form-control' value=0 id='children'  name='children' onchange=change() required>
+    </div>
+   
+    <div class='col'>
+        ROOMS NEEDED:<br><input type=number value=1 class='form-control' name='room_needed' id='rn'><br>
+        &nbsp;  &nbsp;
+        <input type ='checkbox' id='check' onclick=room()  required>&nbsp;maximum 2 adults per room
+    </div><br>
+
+    <div class='col'>
+        <br><br><br>
+        <button type='submit' class='form-control btn btn-info'>find hotels
+    </div>
+</div>
+<br>
+</div>
+
+</form>
+
+
+
+
+<br>
+<hr>
+{% if hotel %}
+{% for i in hotel %}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class='col'><img src='/static/user/images/{{i.img}}'></div>
+    
+    <div class='col'>
+        
+
+    {{i.hotel_id}}
+    
+        <br>
+        {{i.hotel_name}}
+        <br>
+        {{i.hotel_price}}
+        <br>
+        {{i.room}}
+        <br>
+        {{i.checkin}}
+        <br>
+        {{i.checkout}}
+        <br>
+        {{i.days}}<br>
+        {{i.typeofroom}}
+     
+
+      
+     
+       
+        <br>
+        <form action={% url 'book' %} method='POST'>
+            {% csrf_token %}
+            <input type='number' value={{i.typeofroom}} class='form-control border' name='type' readonly hidden >
+
+        <input type='number' value={{i.room}} class='form-control border' name='room' readonly hidden >
+        <input type=date value={{i.checkin}} name=checkin class='form-control border' readonly hidden>
+        <input type=date value={{i.checkout}} name=checkin class='form-control border' readonly hidden>
+
+        <input type=number value={{i.days}} name=days class='form-control border' readonly hidden>
+        <button type='submit' name=hotel_id  class='form-control border btn btn-success' value='{{i.hotel_id}}'>book now</button>
+
+        </form>
+       
+    </div>
+</div>
+</div><br><hr>
+  
+{% endfor %}
+{% endif %}
+
+
+{% if hotels %}
+       <p> hello</p>
+       
+    {% for i in hotels %}
+    <p>{{i.hotel_name}}->{{i.hotel_location}}->{{i.hotel_price}}</p>
+    {% endfor %}
+{% endif %}
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+ 
+
+    <script>
+        // var date = new Date()
+        // var today = date.getDate()+'-'+date.getMonth()+'-'+date.getFullYear()
+        // var end=Date.today().add(30).days();
+        
+        //const today = new Date();
+
+        var date = new Date();
+        
+       var str='';
+       var str1='';
+       var str2='';
+       date.setDate(date.getDate() + 1);
+       if(date.getMonth()<9){
+          str='0';
+      }
+      if(date.getDate()<10){
+          str2=0
+      }
+     
+  
+        var today =date.getFullYear()+'-'+(str+(parseInt(date.getMonth())+1))+'-'+str2+date.getDate();
+        document.getElementById('cin').value=today;
+           console.log(today)
+
+
+       
+        date.setDate(date.getDate() + 31);
+
+       var str='';
+       var str1='';
+       var str2='';
+       maxi()
+       
+       // date.setMonth(date.getMonth() + 1);
+    
+      if((parseInt(date.getMonth())+1)<10){
+          str1=0
+      }
+      if(date.getDate()<10){
+   str2=0
+      }
+       
+        
+        var end =date.getFullYear()+'-'+str1+(parseInt(date.getMonth())+1)+'-'+str2+date.getDate();
+        date.setDate(date.getDate() + 1);
+      
+
+
+
+
+        document.getElementById('cin').min=today;
+        document.getElementById('cin').max=end;
+
+        document.getElementById('cout').max=end;
+function maxi(){
+      document.getElementById('cout').min= document.getElementById('cin').value;
+}
+
+function change(){
+    document.getElementById('check').checked=false;
+    document.getElementById('rn').value=1;
+}
+function room(){
+    var checkin=document.getElementById('cin').value;
+    var checkout=document.getElementById('cout').value;
+    if(checkin==checkout){
+        alert('check in and checkout date are same')
+        document.getElementById('check').checked=false;   
+    }
+   var adult = document.getElementById('adult').value;
+   var children = document.getElementById('children').value;
+   if(adult/2>=children){
+       document.getElementById('rn').value =Math.ceil(adult/2);
+       document.getElementById('rn').min =Math.ceil(adult/2);
+      
+   }
+   else{
+       //alert(adult+children);
+       document.getElementById('rn').value=Math.ceil((parseInt(adult)+parseInt(children))/3);
+       document.getElementById('rn').min=Math.ceil((parseInt(adult)+parseInt(children))/3)
+
+   }
+   
+}
+
+
+    //    var today =date.get
+        
+        
+
+
+        
+      console.log(today);
+    </script>
+</body>
+</html>

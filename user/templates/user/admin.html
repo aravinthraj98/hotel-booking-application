@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class='container justify-content-center ' style='margin-top:15%;width:50%'>
+    <button onclick="document.getElementById('add').style.display='';document.getElementById('update').style.display='none';" class='btn btn-info' style='width:45%'>add room catagories</button>
+    <button onclick="document.getElementById('add').style.display='none';document.getElementById('update').style.display='';" class='btn btn-info' style='width:45%'>update vacancy</button><br>
+    <div class='alert alert-danger' role=alert>
+      {{msg}}
+   </div>
+
+    <form action ={% url 'insert' %} method="POST" style='display:none' id='add' enctype="multipart/form-data">
+        {% csrf_token %}
+     
+        <b>type of room</b>
+        <input type="text" placeholder="room type" name="type" class="form-control" required/><br>
+        <b>cost per room</b>
+        <input type="number" placeholder="cost"  name='price' class="form-control" required><br>
+       <b>image:</b> 
+        <input type="file"  name="img" accept="image/*" placeholder='img' class="form-control"required><br><br>
+        <button type="submit" value='add' class='btn btn-success form-control' name='room'>add</button>
+        <br>
+        </form>
+        <form action ={% url 'insert' %} method="POST" style='display:none' id='update' enctype="multipart/form-data">
+          {% csrf_token %}
+          <b>ADD NEW STOCK</b><br>
+          <input type="text" placeholder="room type" name="type" class="form-control" required/><br>
+          <input type="number" placeholder="cost" id='price' name='price' class="form-control" ><br>
+          <input type='date' placeholder="choose date" id='date' name='dates' class="form-control"><br>
+          <input type='number' placeholder='vacancy' id='vacancy' name='vacancy' class="form-control"><br>
+
+          <button type="submit" value='cost' name='room' class='btn btn-success' style='width:45%;' onclick='update(value)'>cost update</button>
+          <button type="submit" value='vacancy' name='room' class='btn btn-success' style='width:45%;' onclick='update(value)'>vacancy update</button>
+          <br>
+          </form>
+          </div>
+
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+ <script>
+   function update(a){
+     if(a=='cost'){
+    var cost=document.getElementById('price');
+    cost.required=true;
+     }
+     else{
+       var date=document.getElementById('date');
+       date.required=true;
+       var vaccancy=document.getElementById('vacancy');
+       vaccancy.required=true;
+     }
+
+   }
+ </script>
+  </body>
+</html>

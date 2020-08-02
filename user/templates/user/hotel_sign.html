@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+    <p style='align-items: flex-end;'><a href={% url 'logout' %} class='btn btn-danger'>logout</a></p>
+   
+    <div>
+        <div class='container justify-content-center w-25 ' id='container' style='margin-top:20%;'>
+            <div  class='row ml-4'>
+              <div class=col>
+                  <button class='btn btn-info' style='width:70px;'  onclick="hide('login','sign')">login</button>
+              </div>
+              <div class=col>
+                   <button style=width:70px; class='btn btn-info' onclick="hide('sign','login')">signup</button>
+               </div>
+         </div><br>
+         {% if msg %}
+         <div class='alert alert-danger' role=alert>
+             {{msg}}
+          </div>
+         
+             
+      
+         {% endif %}<br>
+        <form id='login' style='display:none;' action="{% url 'hotel' %}" method='POST'>
+          {% csrf_token %}
+          <input type="text"  class='form-control' placeholder='hotelid' name="hotel_id" maxlength="10" required><br>
+          <input type='password' name="password" placeholder='password' class=form-control required><br>
+          <input type="submit" value="login" class='form-control btn btn-success'  name='user'>
+        </form>
+       <form id='sign' style='display:none;'  action="{% url 'hotel' %}" enctype="multipart/form-data" method='POST'>
+          {% csrf_token %}
+    
+
+          <input type='text' name="hotelname"  placeholder="hotelname" class=form-control  required><br>
+
+          
+          <input type="tel" id="phone" class='form-control' name="phone"  placeholder='mobile number'   pattern="[0-9]{10}" required><br>
+
+          <input type='password' name="password" id="password" placeholder="password" class=form-control  required><br>
+          <input type="password" name="cpassword"id="cpassword" class='form-control' placeholder="confirm password" required><br>
+          <input type="text" name="location" class='form-control' placeholder=location required><br>
+          <input type='checkbox' id='check' onclick=checkp() required > <b>i agree terms and conditions,note your hotelid in ur login u cal also login using ur id</b><br><br>
+
+
+          <input type="submit" value="signup" onclick=checkp() class='form-control btn btn-primary' name='user'>
+
+       </form>
+  </div>
+      </div>
+
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script>
+              function checkp(){
+            var pass=document.getElementById('password').value
+            var cpass=document.getElementById('cpassword').value
+            if (pass.length>8){
+               if(pass!=cpass){
+                   document.getElementById('check').checked=false;
+                   alert('password and confirm password must be same') 
+               }
+            }
+            else{ 
+                document.getElementById('check').checked=false;
+                alert('password length must have atleast 8');
+            }
+              }
+              function hide(a,b){
+            document.getElementById(a).style.display='';
+            document.getElementById(b).style.display='none';
+            if(a=='sign'){
+              document.getElementById('container').style.marginTop='1%';
+            }
+
+
+        }
+           
+
+    </script>
+  </body>
+</html>
