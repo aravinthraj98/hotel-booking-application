@@ -15,4 +15,4 @@ install all modules given in requirements
 start app as hotel in django
 replace views,urls,models,admin,template and static files
 create super user and migrate models
-a
+
