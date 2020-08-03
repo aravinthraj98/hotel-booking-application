@@ -5,22 +5,39 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+  
+    body { 
+         background-image: url('/static/user/images/bg01.jpg');
+         background-size:cover;
+         background-position: center;
+         background-attachment: fixed;
+  
 
+   }
+</style>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
-    <div class='container justify-content-center ' style='margin-top:15%;width:50%'>
+    <p style='text-align:right;margin-right:5%;padding-top:5%'><a href="{% url 'detail' %}" class='btn btn-info'>show details</a>&nbsp;&nbsp;<a href="{% url 'logout' %}"class='btn btn-danger'>logout</a></p>
+
+    <div class='container justify-content-center ' style='margin-top:10%;width:50%'>
     <button onclick="document.getElementById('add').style.display='';document.getElementById('update').style.display='none';" class='btn btn-info' style='width:45%'>add room catagories</button>
     <button onclick="document.getElementById('add').style.display='none';document.getElementById('update').style.display='';" class='btn btn-info' style='width:45%'>update vacancy</button><br>
+    {% if msg %}
     <div class='alert alert-danger' role=alert>
       {{msg}}
    </div>
+   {% endif %}
+   <b style='color:red'>note:vacancy and cost update u can give only respective field other you can leave as optional</b>
+   <br>
 
     <form action ={% url 'insert' %} method="POST" style='display:none' id='add' enctype="multipart/form-data">
         {% csrf_token %}
      
         <b>type of room</b>
+     
         <input type="text" placeholder="room type" name="type" class="form-control" required/><br>
         <b>cost per room</b>
         <input type="number" placeholder="cost"  name='price' class="form-control" required><br>
@@ -31,7 +48,8 @@
         </form>
         <form action ={% url 'insert' %} method="POST" style='display:none' id='update' enctype="multipart/form-data">
           {% csrf_token %}
-          <b>ADD NEW STOCK</b><br>
+          
+          
           <input type="text" placeholder="room type" name="type" class="form-control" required/><br>
           <input type="number" placeholder="cost" id='price' name='price' class="form-control" ><br>
           <input type='date' placeholder="choose date" id='date' name='dates' class="form-control"><br>

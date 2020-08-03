@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+    .width{
+        width:30%
+    }
+   
+    tr{
+      color:brown
+    }
+    body{
+       
+       background-image: url('/static/user/images/bg03.jpg');
+       background-size:cover;
+       background-position: center;
+       background-attachment: fixed;
+    
+   }
+</style>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body style='background-color:honeydew'>
+    <p style='text-align: right;margin-right: 5%;'><a href="{% url 'insert' %}"class='btn btn-danger'>go back to home</a></p><br>
+
+    <div class="container-fluid">
+        <form action="{% url 'detail' %}" method="POST">
+            {% csrf_token %}
+        <button name="detail" id="" class="btn btn-primary width" type="submit" value="availability">see availability</button>
+        <button name="detail" id="" class="btn btn-primary width" type="submit" value="bookings">see bookings</button>
+
+       <button name="detail" id="" class="btn btn-primary width" type="submit" value="catagories">  see catagories</button>
+    </form>
+      </div>
+      {% if msg %}
+      <div class='alert alert-danger' role=alert>
+          {{msg}}
+       </div>
+      
+          
+   
+      {% endif %}<br>
+      {% if c_detail %}
+      <table class="table  table-hover">
+      <tr><th>room type</th>
+      <th>no of rooms</th>
+      <th>price per room</th>
+      </tr>
+      
+      {% for i in c_detail %}
+    <tr><td>{{i.typeofroom}}</td>
+    <td>{{i.noofrooms}}</td>
+  <td>{{i.price}}</td></tr>
+      {% endfor %}
+    </table>
+      {% endif %}
+    
+      {% if a_detail %}
+      <table class="table  table-hover">
+        <tr><th>room type</th>
+        <th>date</th>
+        <th>availability</th>
+        </tr>
+        {% for i in a_detail %}
+       <tr>
+         <td>{{i.typeofroom}}</td>
+         <td>{{i.date}}</td>
+         <td>{{i.availability}}</td>
+       </tr>
+        {% endfor %}
+      </table>
+      {% endif %}<br>
+     
+    
+      {% if b_detail %}
+      <table class="table  table-hover">
+        <tr><th>phone</th>
+        <th>checkin</th>
+        <th>checkout</th>
+        <th>noof persons</th>
+        <th>noofrooms</th>
+        </tr>
+        {% for i in b_detail %}
+        <tr>
+          <td>{{i.phone}}</td>
+          <td>{{i.checkin}}</td>
+          <td>{{i.checkout}}</td>
+          <td>{{i.maxperson}}</td>
+          <td>{{i.noofrooms}}</td>
+        </tr>
+        {% endfor %}
+</table>
+      {% endif %}
+
+    
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>

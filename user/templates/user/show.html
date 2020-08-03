@@ -28,7 +28,7 @@
       </style>
 </head>
 <body>
-    <p style='text-align: right;margin-right: 5%;'><a href=# class='btn btn-danger'>logout</a></p>
+    <p style='text-align: right;margin-right: 5%;'><a href="{% url 'logout' %}"class='btn btn-danger'>logout</a></p>
 
     {% if msg %}
        <p>{{msg}}</p>
@@ -37,7 +37,7 @@
 
  {% csrf_token %}
    <div class="container-fluid blue">
-       
+      
 <div class="row">
  <div class='col'>
      location:<br>  <input type="text" class='form-control' name='location' list='location' required>
@@ -92,6 +92,7 @@
 {% for i in hotel %}
 
 
+
 <div class="container-fluid">
     <div class="row">
         <div class='col'><img src='/static/user/images/{{i.img}}'></div>
@@ -99,21 +100,27 @@
     <div class='col'>
         
 
-    {{i.hotel_id}}
     
         <br>
-        {{i.hotel_name}}
+        <b style='color:rosybrown'>hotelname</b>
+        :{{i.hotel_name}}
         <br>
-        {{i.hotel_price}}
+        <b style='color:rosybrown'>price</b>
+          : {{i.hotel_price}}
         <br>
-        {{i.room}}
+        <b style='color:rosybrown'>No of rooms</b>
+       : {{i.room}}
         <br>
-        {{i.checkin}}
+        <b style='color:rosybrown'>checkin</b>
+       : {{i.checkin}}
         <br>
-        {{i.checkout}}
+        <b style='color:rosybrown'>checkout</b>
+        :{{i.checkout}}
         <br>
-        {{i.days}}<br>
-        {{i.typeofroom}}
+        <b style='color:rosybrown'>NO of days</b>
+        :{{i.days}}<br>
+        <b style='color:rosybrown'>type</b>
+       : {{i.typeofroom}}
      
 
       
@@ -122,11 +129,14 @@
         <br>
         <form action={% url 'book' %} method='POST'>
             {% csrf_token %}
+           
             <input type='number' value={{i.typeofroom}} class='form-control border' name='type' readonly hidden >
 
         <input type='number' value={{i.room}} class='form-control border' name='room' readonly hidden >
         <input type=date value={{i.checkin}} name=checkin class='form-control border' readonly hidden>
-        <input type=date value={{i.checkout}} name=checkin class='form-control border' readonly hidden>
+        <input type=date value={{i.checkout}} name=checkout class='form-control border' readonly hidden>
+        <input type=text value='{{i.typeofroom}}' name='type'  class='form-control border' readonly hidden>
+
 
         <input type=number value={{i.days}} name=days class='form-control border' readonly hidden>
         <button type='submit' name=hotel_id  class='form-control border btn btn-success' value='{{i.hotel_id}}'>book now</button>

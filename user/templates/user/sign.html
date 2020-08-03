@@ -5,11 +5,18 @@
     <title>Title</title>
  <style>
      body{
-        height:130%;
+       
+         background-image: url('/static/user/images/bg03.jpg');
+         background-size:cover;
+         background-position: center;
+         background-attachment: fixed;
+      
      }
+   
      button{
          margin:auto;
      }
+    
  </style>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -19,8 +26,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
   <body>
+    <p style='text-align: right;margin-right: 5%;'><a href="{% url 'hotel' %}"class='btn btn-info'>hotel login</a></p>
+
       <div>
-          <div class='container justify-content-center w-25 ' style='margin-top:20%;'>
+          <div class='container justify-content-center w-25 ' style='margin-top:10%;'>
+            <h2 style='color:black;text-align: center;'>USER LOGIN</h2>
               <div  class='row ml-4'>
                 <div class=col>
                     <button class='btn btn-info' style='width:70px;'  onclick="hide('login','sign')">login</button>
@@ -54,7 +64,7 @@
 
             <input type='password' name="password" id="password" placeholder="password" class=form-control  required><br>
             <input type="password" name="cpassword" id="cpassword" class='form-control' placeholder="confirm password" required><br>
-            <input type='checkbox' id='check' onclick=checkp() required > <b>i agree terms and conditions</b><br><br>
+            <input type='checkbox' id='check' onclick=checkp() required > <b style='color:wheat'>i agree terms and conditions</b><br><br>
             <input type="submit" value="signup" onclick=checkp() class='form-control btn btn-primary' name='user'>
          </form>
     </div>
@@ -91,18 +101,7 @@
         document.getElementById('check').checked=false;
 
 
-      {% if msg %}
-      
-     if ({{a}}==login){
-        var button= document.getElementById('login')
-     }
-     else{
-         var button=document.getElementById('sign')
-     }
-    
-     button.style.display='';
-     console.log(button)
-      {% endif %}
+   
     </script>
    
         

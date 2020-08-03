@@ -23,6 +23,9 @@ urlpatterns = [
     path('book/',views.book,name='book'),
     path('',views.users,name='sign'),
     path('hotels/',views.hotels,name='hotel'),
-    path('update/',views.room_update,name='insert')
+    path('update/',views.room_update,name='insert'),
+    path('logout/',views.logout,name='logout'),
+    path('detail,',views.detail,name='detail')
+
 
 ]
