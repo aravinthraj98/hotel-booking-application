@@ -7,7 +7,7 @@ login,signup,add new catagory rooms,update cost per room,update availability on 
 
 
 **To be done**
-need to add view booking status for user
+need to add view booking status for user,
 improve Ui
 
 **installation**
